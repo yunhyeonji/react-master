@@ -59,6 +59,13 @@ function AppTodo(props) {
 
     setTodos(newTodos);
   }
+
+  const handleReverse = () => {
+    const nextTodos = [...todos];
+    // nextTodos.reverse();
+    // setTodos(nextTodos);
+    setTodos(todos.toReversed())
+  }
   return (
     <div>
       <h2>할일 목록</h2>
@@ -74,12 +81,13 @@ function AppTodo(props) {
       <div>
         <select value={insertAt} onChange={(e) => {setInsertAt(e.target.value)}}>
           {todos.map((_, index) => (
-            <option key={item.id} value={index}>{index} 번째</option>
+            <option key={index} value={index}>{index} 번째</option>
           ))}
         </select>
         <button onClick={handleAddTodoByIndex}>{insertAt} 번째 추가</button>
       </div>
       <p>preview : {todoText}</p>
+      <button onClick={handleReverse}>reverse</button>
       <TodoList todos={todos} onDeleteTodo={handleTodoDelete} onToggleTodo={handelTodoToggle}/>
     </div>
   );
