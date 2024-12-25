@@ -1,70 +1,66 @@
-import React from 'react';
+import React, { useState,useReducer }from 'react';
 import './App.css';
-import { useState } from 'react';
 import TodoList from './components/todo/TodoList';
+import todoReducer from './components/reducer/todo-reducer';
 
 
 function AppTodo(props) {
   const [todoText, setTodoText] = useState('');
-  const [todos, setTodos] = useState([
-    { id : 0, label: 'HTML&CSS 공부하기', done:false},
-    { id : 1, label: '자바스크립트 공부하기', done:true}
-  ])
+  const [todos, dispatch] = useReducer(todoReducer, [
+    { id : 0, text: 'HTML&CSS 공부하기', done:false},
+    { id : 1, text: '자바스크립트 공부하기', done:false}
+  ]);
   const [insertAt, setInsertAt] = useState(todos.length-1);
 
   const handleTodoTextChange = (e) => {
-     setTodoText(e.target.value);
+    setTodoText(e.target.value);
   }
 
   const handleAddTodo = () => {
-    const nextId = todos.length;
-    const newTodo = {id: nextId, label: todoText};
-    setTodos([
-      ...todos,
-      newTodo
-    ])
+    dispatch({
+      type:'added',
+      nextId: todos.length,
+      todoText
+    });
     setTodoText('');
   }
 
   const handleAddTodoByIndex = () => {
-    const nextId = todoText.length;
-    const newTodo = [
-      ...todos.slice(0, insertAt),
-      {id: nextId, label:todoText, done:false},
-      ...todos.slice(insertAt)
-    ]
-
-    setTodos(newTodo);
+    dispatch({
+      type:'added_index',
+      nextId:todos.length,
+      insertAt,
+      todoText
+    });
     setTodoText('');
   }
 
   const handleKeyDown = (e) => {
-    if(e.key === 'Enter'){
+    if (e.key === 'Enter') {
       handleAddTodo();
+      setTodoText('');
     }
   }
 
-  const handleTodoDelete = (deleteId) => {
-    const newTodos = todos.filter(item => item.id !== deleteId);
-    setTodos(newTodos);
+  const handleDelete = (deleteId) => {
+    dispatch({
+      type:'delete',
+      deleteId
+    });
   }
 
-  const handelTodoToggle = (id, done) => {
-    const newTodos = todos.map(item => {
-      if(item.id === id){
-        return {...item, done};
-      }
-      return item;
+  const handelDone = (id, done) => {
+    dispatch({
+      type:'done',
+      id,
+      done
     })
-
-    setTodos(newTodos);
   }
 
   const handleReverse = () => {
-    const nextTodos = [...todos];
-    // nextTodos.reverse();
-    // setTodos(nextTodos);
-    setTodos(todos.toReversed())
+    dispatch({
+      type:'reverse'
+    })
   }
   return (
     <div>
@@ -88,7 +84,7 @@ function AppTodo(props) {
       </div>
       <p>preview : {todoText}</p>
       <button onClick={handleReverse}>reverse</button>
-      <TodoList todos={todos} onDeleteTodo={handleTodoDelete} onToggleTodo={handelTodoToggle}/>
+      <TodoList todos={todos} onDeleteTodo={handleDelete} onToggleTodo={handelDone}/>
     </div>
   );
 }

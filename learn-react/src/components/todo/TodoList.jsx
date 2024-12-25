@@ -1,6 +1,6 @@
 import React from 'react';
 
-function TodoList({onToggleTodo, onDeleteTodo, todos = []}) {
+function TodoList({onDeleteTodo, todos = []}) {
   const items = [...todos] ;
   return (
     <ul>
@@ -10,7 +10,7 @@ function TodoList({onToggleTodo, onDeleteTodo, todos = []}) {
             console.log(e.target.checked)
           }}
         />
-        <span>{item.done ? (<del>{item.label}</del>) : item.label}</span>
+        <span>{item.done ? (<del>{item.text}</del>) : item.text}</span>
         <button onClick={() => onDeleteTodo(item.id)}>X</button>
       </li>)}
     </ul>
