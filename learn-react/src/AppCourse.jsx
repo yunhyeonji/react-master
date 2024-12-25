@@ -1,10 +1,11 @@
+import { useState } from 'react';
 import './AppCourse.css';
 import CourseForm from './components/course/CourseForm';
 import CourseListCard from './components/course/CourseListCard';
 
 
 export default function App() {
-  const items = [
+  const [items,setItems] = useState([
     {
       id:0,
       title: '입문자를 위한, HTML&CSS 웹 개발 입문',
@@ -28,14 +29,24 @@ export default function App() {
       isFavorite:true,
       link: 'https://inf.run/YkAN'
     }
-  ];
+  ]);
 
   const favoriteItems = items.filter(item => item.isFavorite);
+
+  const handleIsFavoriteToggle = (id, isFavorite) => {
+    const newItems = items.map(item => {
+      if(item.id === id){
+        return {...item, isFavorite}
+      }
+      return item;
+    })
+    setItems(newItems);
+  }
 
   return (
     <main style={{flexDirection: 'column', gap:'1rem'}}>
         <CourseForm />
-        <CourseListCard title="강의 목록" items={items}/>
+        <CourseListCard title="강의 목록" onIsFavorite={handleIsFavoriteToggle} items={items}/>
       {/* <CourseListCard title="관심 강의" items={favoriteItems}/> */}
     </main>
   )

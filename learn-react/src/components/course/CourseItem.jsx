@@ -14,10 +14,10 @@ function LinkIconBtn({link}){
   )
 }
 
-export default function CourseItem({title, description, thumbnail,isFavorite, link}) {
+export default function CourseItem({onIsFavorite, id, title, description, thumbnail, isFavorite, link}) {
   function handleFavorite(e){
     e.stopPropagation();
-    alert(isFavorite ? '좋아요' : '싫어요');
+    onIsFavorite(id, !isFavorite);
   }
   function handleItemClick(){
     open(link,'_blank');
