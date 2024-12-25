@@ -34,8 +34,8 @@ export default function App() {
 
   return (
     <main style={{flexDirection: 'column', gap:'1rem'}}>
-       <CourseForm />
-      <CourseListCard title="강의 목록" items={items}/>
+        <CourseForm />
+        <CourseListCard title="강의 목록" items={items}/>
       {/* <CourseListCard title="관심 강의" items={favoriteItems}/> */}
     </main>
   )
