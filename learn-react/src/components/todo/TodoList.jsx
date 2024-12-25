@@ -1,11 +1,18 @@
 import React from 'react';
 
-function TodoList({todos = []}) {
+function TodoList({onToggleTodo, onDeleteTodo, todos = []}) {
   const items = [...todos] ;
-  items.push({id : 2, label : '포트폴리오 만들기'})
   return (
     <ul>
-      {items.map(item => <li key={item.id}>{item .label}</li>)}
+      {items.map(item => <li key={item.id}>
+        <input type='checkbox' checked={item.done}
+          onChange={(e) => {
+            console.log(e.target.checked)
+          }}
+        />
+        <span>{item.done ? (<del>{item.label}</del>) : item.label}</span>
+        <button onClick={() => onDeleteTodo(item.id)}>X</button>
+      </li>)}
     </ul>
   );
 }
