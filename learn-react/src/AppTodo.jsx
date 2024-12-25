@@ -36,9 +36,8 @@ function AppTodo(props) {
   }
 
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
       handleAddTodo();
-      setTodoText('');
     }
   }
 
