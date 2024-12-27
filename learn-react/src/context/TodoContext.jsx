@@ -7,7 +7,7 @@ export const TodoDispatchContext = createContext(null); // dispatch
 
 export function TodoProvider ({children}) {
   const [todos, dispatch] = useImmerReducer(todoReducer, [
-    { id : 0, text: 'HTML&CSS 공부하기', done:false},
+    { id : 0, text: 'HTML&CSS 공부하기', done:true},
     { id : 1, text: '자바스크립트 공부하기', done:false}
   ]);
 
