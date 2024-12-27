@@ -1,10 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
-import AppTodo from './AppTodo';
+import App from './AppTheme';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <AppTodo />
+    <App />
   </React.StrictMode>
 )
