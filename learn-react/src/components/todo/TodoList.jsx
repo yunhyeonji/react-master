@@ -1,17 +1,16 @@
 import React from 'react';
+import TodoItem from './TodoItem';
+import { useTodos } from '../../context/TodoContext';
 
-function TodoList({onDeleteTodo, todos = []}) {
+function TodoList() {
+  const todos = useTodos();
   const items = [...todos] ;
   return (
     <ul>
       {items.map(item => <li key={item.id}>
-        <input type='checkbox' checked={item.done}
-          onChange={(e) => {
-            console.log(e.target.checked)
-          }}
+        <TodoItem 
+          item={item}
         />
-        <span>{item.done ? (<del>{item.text}</del>) : item.text}</span>
-        <button onClick={() => onDeleteTodo(item.id)}>X</button>
       </li>)}
     </ul>
   );
