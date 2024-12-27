@@ -2,7 +2,7 @@ import './AppTheme.css';
 import HeaderTheme from './components/theme/Header.jsx';
 import MainTheme from './components/theme/Main.jsx'
 import FooterTheme from './components/theme/Footer.jsx'
-import { DarkModeContext } from './context/DarkModeContext.jsx';
+import { DarkModeProvider } from './context/DarkModeContext.jsx';
 import { useState } from 'react';
 
 function AppTheme(props) {
@@ -13,11 +13,11 @@ function AppTheme(props) {
   }
 
   return (
-    <DarkModeContext.Provider value={{darkMode, toggleDarkMode}}>
+    <DarkModeProvider>
       <HeaderTheme />
       <MainTheme />
       <FooterTheme/>
-    </DarkModeContext.Provider>
+    </DarkModeProvider>
   );
 }
 
