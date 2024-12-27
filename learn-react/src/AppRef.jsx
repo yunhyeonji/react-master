@@ -37,19 +37,19 @@ function Form() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(!form.title){
+    if (!form.title) {
       titleInputRef.current.focus();
+      return;
     }
-    else if(!form.author){
+    if (!form.author) {
       authorInputRef.current.focus();
+      return;
     }
-    else if(!form.content){
+    if (!form.content) {
       contentTextareaRef.current.focus();
+      return;
     }
-    else{
-      console.log('저장 완료!');
-    }
-    
+    console.log('저장 완료!');
   }
 
   const handleForm = (e) => {
@@ -60,9 +60,37 @@ function Form() {
     })
   }
 
-  useEffect(()=>{
-    contentTextareaRef.current.focus();
-  },[]);
+  const [isChanged, setIsChanged] = useState(false);
+  const prevForm = useRef(null);
+
+  // 초기 세팅
+  useEffect(() => {
+    prevForm.current = { ...form };
+
+    if (!form.title) {
+      titleInputRef.current.focus();
+      return;
+    }
+    if (!form.author) {
+      authorInputRef.current.focus();
+      return;
+    }
+    if (!form.content) {
+      contentTextareaRef.current.focus();
+      return;
+    }
+  }, []);
+
+  // 변화감지
+  useEffect(() => {
+    const hasChanged = (
+      prevForm.current.title !== form.title ||
+      prevForm.current.author !== form.author ||
+      prevForm.current.content !== form.content
+    );
+    setIsChanged(hasChanged);
+  }, [form])
+
   
   return(
     <form onSubmit={handleSubmit}>
@@ -74,7 +102,7 @@ function Form() {
         <h2 /> 
         <textarea ref={contentTextareaRef} name='content' placeholder='내용' value={form.content} onChange={handleForm} />
         <h2 /> 
-        <button>전송</button>
+        <button disabled={!isChanged} >전송</button>
       </fieldset>
     </form>
   )
