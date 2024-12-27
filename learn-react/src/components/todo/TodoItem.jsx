@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import {  useTodosDispatch } from '../../context/TodoContext';
 
-function TodoItem({item}) {
+export default memo(function TodoItem ({item}) {
   const dispatch = useTodosDispatch();
 
   // todo 삭제
@@ -32,6 +32,4 @@ function TodoItem({item}) {
         <button onClick={() => handleDelete(item.id)}>X</button>
     </label>
   );
-}
-
-export default TodoItem;
+});
