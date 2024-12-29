@@ -10,24 +10,22 @@ function ButtonCounter() {
     countRef.current++;
     console.log('countRef : ', countRef);
 
-    counter++
+    counter++;
     console.log('counter : ', counter);
     setCount(counter);
 
     console.log('useState count : ', count);
     setCount(count + 1);
-  }
+  };
 
-  return (
-    <button onClick={handleClick}>Count</button>
-  )
+  return <button onClick={handleClick}>Count</button>;
 }
 
 function Form() {
   const [form, setForm] = useState({
     title: '제목',
     author: 'hyeonji',
-    content: ''
+    content: '',
   });
 
   // DOM 요소를 조작한다.
@@ -35,7 +33,7 @@ function Form() {
   const authorInputRef = useRef(null);
   const contentTextareaRef = useRef(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     if (!form.title) {
       titleInputRef.current.focus();
@@ -50,15 +48,15 @@ function Form() {
       return;
     }
     console.log('저장 완료!');
-  }
+  };
 
-  const handleForm = (e) => {
-    const {name, value} = e.target;
+  const handleForm = e => {
+    const { name, value } = e.target;
     setForm({
       ...form,
-      [name] : value
-    })
-  }
+      [name]: value,
+    });
+  };
 
   const [isChanged, setIsChanged] = useState(false);
   const prevForm = useRef(null);
@@ -83,36 +81,51 @@ function Form() {
 
   // 변화감지
   useEffect(() => {
-    const hasChanged = (
+    const hasChanged =
       prevForm.current.title !== form.title ||
       prevForm.current.author !== form.author ||
-      prevForm.current.content !== form.content
-    );
+      prevForm.current.content !== form.content;
     setIsChanged(hasChanged);
-  }, [form])
+  }, [form]);
 
-  
-  return(
+  return (
     <form onSubmit={handleSubmit}>
       <fieldset>
         <legend>글쓰기</legend>
-        <input ref={titleInputRef} name='title' placeholder='제목' value={form.title} onChange={handleForm} />
+        <input
+          ref={titleInputRef}
+          name="title"
+          placeholder="제목"
+          value={form.title}
+          onChange={handleForm}
+        />
         <h2 />
-        <input ref={authorInputRef} name='author' placeholder='작성자' value={form.author} onChange={handleForm} />
-        <h2 /> 
-        <textarea ref={contentTextareaRef} name='content' placeholder='내용' value={form.content} onChange={handleForm} />
-        <h2 /> 
-        <button disabled={!isChanged} >전송</button>
+        <input
+          ref={authorInputRef}
+          name="author"
+          placeholder="작성자"
+          value={form.author}
+          onChange={handleForm}
+        />
+        <h2 />
+        <textarea
+          ref={contentTextareaRef}
+          name="content"
+          placeholder="내용"
+          value={form.content}
+          onChange={handleForm}
+        />
+        <h2 />
+        <button disabled={!isChanged}>전송</button>
       </fieldset>
     </form>
-  )
+  );
 }
 
 export default function AppRef(props) {
-
   return (
     <>
-      <h2>Count</h2> 
+      <h2>Count</h2>
       <ButtonCounter />
       <ButtonCounter />
       <h2>Form</h2>
@@ -120,4 +133,3 @@ export default function AppRef(props) {
     </>
   );
 }
-

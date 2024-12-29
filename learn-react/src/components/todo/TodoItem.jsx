@@ -1,35 +1,37 @@
 import React, { memo } from 'react';
-import {  useTodosDispatch } from '../../context/TodoContext';
+import { useTodosDispatch } from '../../context/TodoContext';
 
-export default memo(function TodoItem ({item}) {
+export default memo(function TodoItem({ item }) {
   const dispatch = useTodosDispatch();
 
   // todo 삭제
-  const handleDelete = (deleteId) => {
+  const handleDelete = deleteId => {
     dispatch({
-      type:'delete',
-      deleteId
+      type: 'delete',
+      deleteId,
     });
-  }
+  };
 
   // todo 완료
   const handelDone = (id, done) => {
     dispatch({
-      type:'done',
+      type: 'done',
       id,
-      done
-    })
-  }
+      done,
+    });
+  };
 
   return (
     <label>
-      <input type='checkbox' checked={item.done}
-          onChange={(e) => {
-            handelDone(item.id, !item.done);
-          }}
-        />
-        <span>{item.done ? (<del>{item.text}</del>) : item.text}</span>
-        <button onClick={() => handleDelete(item.id)}>X</button>
+      <input
+        type="checkbox"
+        checked={item.done}
+        onChange={e => {
+          handelDone(item.id, !item.done);
+        }}
+      />
+      <span>{item.done ? <del>{item.text}</del> : item.text}</span>
+      <button onClick={() => handleDelete(item.id)}>X</button>
     </label>
   );
 });
