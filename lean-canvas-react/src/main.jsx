@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import App from './App';
+import ErrorPage from './ErrorPage';
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
         element: <Contact />,
       },
     ],
+    errorElement: <ErrorPage />,
   },
 ]);
 
