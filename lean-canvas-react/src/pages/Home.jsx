@@ -2,7 +2,11 @@ import { useEffect, useState } from 'react';
 import CanvasList from '../components/CanvasList';
 import SearchBar from '../components/SearchBar';
 import ViewToggle from '../components/ViewToggle';
-import { createCanvases, getCanvases } from '../components/api/canvas';
+import {
+  createCanvas,
+  deleteCanvas,
+  getCanvases,
+} from '../components/api/canvas';
 import Loading from '../components/Loading';
 import Error from '../components/Error';
 import Button from '../components/Button';
@@ -33,8 +37,16 @@ function Home() {
     fetchData({ title_like: searchText });
   }, [searchText]);
 
-  const handleDeleteItem = id => {
-    setData(data.filter(item => item.id !== id));
+  const handleDeleteItem = async id => {
+    try {
+      if (!confirm('삭제하시겠습니까?')) {
+        return;
+      }
+      await deleteCanvas(id);
+      setData(data.filter(item => item.id !== id));
+    } catch (err) {
+      alert(err.message);
+    }
   };
 
   // 새로운 린 캔버스 생성
@@ -42,7 +54,7 @@ function Home() {
     try {
       setIsLoadingCreate(true);
       await new Promise(resolver => setTimeout(resolver, 1000));
-      await createCanvases();
+      await createCanvas();
       fetchData({ title_like: searchText });
     } catch (err) {
       alert(err.message);
@@ -50,6 +62,7 @@ function Home() {
       setIsLoadingCreate(false);
     }
   };
+
   return (
     <>
       <div className="mb-6 flex flex-col sm:flex-row items-center justify-between">
