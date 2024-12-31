@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react';
 import CanvasList from '../components/CanvasList';
 import SearchBar from '../components/SearchBar';
 import ViewToggle from '../components/ViewToggle';
-import { getCanvases } from '../components/api/canvas';
+import { createCanvases, getCanvases } from '../components/api/canvas';
 import Loading from '../components/Loading';
 import Error from '../components/Error';
+import Button from '../components/Button';
 
 function Home() {
   const [isGrid, setIsGrid] = useState(true);
@@ -12,6 +13,8 @@ function Home() {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
+
+  const [isLoadingCreate, setIsLoadingCreate] = useState(false);
 
   /** 데이터 가져오기 */
   async function fetchData(params) {
@@ -33,11 +36,30 @@ function Home() {
   const handleDeleteItem = id => {
     setData(data.filter(item => item.id !== id));
   };
+
+  // 새로운 린 캔버스 생성
+  const handleCreateCanvas = async () => {
+    try {
+      setIsLoadingCreate(true);
+      await new Promise(resolver => setTimeout(resolver, 1000));
+      await createCanvases();
+      fetchData({ title_like: searchText });
+    } catch (err) {
+      alert(err.message);
+    } finally {
+      setIsLoadingCreate(false);
+    }
+  };
   return (
     <>
       <div className="mb-6 flex flex-col sm:flex-row items-center justify-between">
         <SearchBar searchText={searchText} setSearchText={setSearchText} />
         <ViewToggle isGrid={isGrid} setIsGrid={setIsGrid} />
+      </div>
+      <div className="flex justify-end mb-6">
+        <Button loading={isLoadingCreate} onClick={handleCreateCanvas}>
+          등록하기
+        </Button>
       </div>
       {isLoading && <Loading />}
       {error && (

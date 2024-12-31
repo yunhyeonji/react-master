@@ -20,7 +20,7 @@ function CanvasList({ filterData, searchText, isGrid, onDeleteItem }) {
           id={item.id}
           title={item.title}
           lastModified={item.lastModified}
-          keyword={item.keyword}
+          category={item.category}
           onDelete={e => {
             e.preventDefault();
             onDeleteItem(item.id);

@@ -4,25 +4,79 @@
       "id": 1,
       "title": "친환경 도시 농업 플랫폼",
       "lastModified": "2023-06-15",
-      "keyword": "농업"
+      "category": "농업"
     },
     {
       "id": 2,
       "title": "AI 기반 건강 관리 앱",
       "lastModified": "2023-06-10",
-      "keyword": "헬스케어"
+      "category": "헬스케어"
     },
     {
       "id": 3,
       "title": "온디맨드 물류 서비스",
       "lastModified": "2023-06-05",
-      "keyword": "물류"
+      "category": "물류"
     },
     {
       "id": 4,
       "title": "VR 가상 여행 서비스",
       "lastModified": "2023-06-01",
-      "keyword": "여행"
+      "category": "여행"
+    },
+    {
+      "title": "7613_새로운 린 캔버스",
+      "lastModified": "2024-12-31 15:48:09",
+      "category": "신규",
+      "id": 5
+    },
+    {
+      "title": "2776_새로운 린 캔버스",
+      "lastModified": "2024-12-31 15:48:33",
+      "category": "신규",
+      "id": 6
+    },
+    {
+      "title": "8cc4_새로운 린 캔버스",
+      "lastModified": "2024-12-31 15:51:06",
+      "category": "신규",
+      "id": 7
+    },
+    {
+      "title": "5f17_새로운 린 캔버스",
+      "lastModified": "2024-12-31 15:53:26",
+      "category": "신규",
+      "id": 8
+    },
+    {
+      "title": "b34e_새로운 린 캔버스",
+      "lastModified": "2024-12-31 15:54:12",
+      "category": "신규",
+      "id": 9
+    },
+    {
+      "title": "8f1f_새로운 린 캔버스",
+      "lastModified": "2024-12-31 16:03:19",
+      "category": "신규",
+      "id": 10
+    },
+    {
+      "title": "2b62_새로운 린 캔버스",
+      "lastModified": "2024-12-31 16:03:21",
+      "category": "신규",
+      "id": 11
+    },
+    {
+      "title": "0a0d_새로운 린 캔버스",
+      "lastModified": "2024-12-31 16:03:27",
+      "category": "신규",
+      "id": 12
+    },
+    {
+      "title": "b5a3_새로운 린 캔버스",
+      "lastModified": "2024-12-31 16:19:00",
+      "category": "신규",
+      "id": 13
     }
   ]
 }
