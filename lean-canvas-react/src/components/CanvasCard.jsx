@@ -1,12 +1,23 @@
 import { FaPlus } from 'react-icons/fa';
 import Note from './Note';
+import { v4 as uuidv4 } from 'uuid';
 
 function CanvasCard({ notes = [], title, isSubTitle = false, onNotesChange }) {
   // 노트 생성
-  const handleCreateNote = () => {};
+  const handleCreateNote = () => {
+    const newNote = {
+      id: uuidv4(),
+      content: '',
+      color: '',
+    };
+    onNotesChange([...notes, newNote]);
+  };
 
   // 노트 삭제
-  const handleRemoveNote = () => {};
+  const handleRemoveNote = id => {
+    console.log(id);
+    onNotesChange(notes.filter(note => note.id !== id));
+  };
 
   // 노트 수정
   const handleUpdateNote = (id, content, color) => {

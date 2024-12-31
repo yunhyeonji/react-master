@@ -8,6 +8,7 @@ const Note = ({
   onRemoveNote,
   onUpdateNote,
 }) => {
+  const [localContent, setLocalContent] = useState(content);
   const colorOptions = [
     'bg-yellow-300',
     'bg-pink-300',
@@ -38,6 +39,7 @@ const Note = ({
     setColor(newColor);
     onUpdateNote(id, content, newColor);
   };
+
   return (
     <div
       className={`p-4 ${color} relative max-h-[32rem] overflow-hidden`}
@@ -59,7 +61,10 @@ const Note = ({
           <button
             aria-label="Close Note"
             className="text-gray-700"
-            onClick={() => onRemoveNote(id)}
+            onClick={e => {
+              e.stopPropagation();
+              onRemoveNote(id);
+            }}
           >
             <AiOutlineClose size={20} />
           </button>
@@ -67,8 +72,9 @@ const Note = ({
       </div>
       <textarea
         ref={textareaRef}
-        value={content}
-        onChange={handleContentChange}
+        value={localContent}
+        onChange={e => setLocalContent(e.target.value)}
+        onBlur={handleContentChange}
         className={`w-full h-full bg-transparent resize-none border-none focus:outline-none text-gray-900 overflow-hidden`}
         aria-label="Edit Note"
         placeholder="메모를 작성하세요."
