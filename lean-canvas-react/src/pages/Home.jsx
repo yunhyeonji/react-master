@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import CanvasList from '../components/CanvasList';
 import SearchBar from '../components/SearchBar';
 import ViewToggle from '../components/ViewToggle';
+import { getCanvases } from '../components/api/canvas';
 
 function Home() {
   const [isGrid, setIsGrid] = useState(true);
@@ -10,10 +11,8 @@ function Home() {
 
   /** 데이터 가져오기 */
   async function fetchData() {
-    const data = await fetch('http://localhost:8000/canvases')
-      .then(res => res.json())
-      .catch(console.error);
-    setData(data);
+    const res = await getCanvases();
+    setData(res.data);
   }
   useEffect(() => {
     fetchData();
