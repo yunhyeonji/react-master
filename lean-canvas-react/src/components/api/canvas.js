@@ -28,3 +28,19 @@ export function createCanvas() {
 export async function deleteCanvas(id) {
   await canvases.delete(`/${id}`);
 }
+
+// 데이터 상세 불러오기
+export async function getCanvasById(id) {
+  const { data } = await canvases.get(`/${id}`);
+  return data;
+}
+
+// 상세 데이터 Title 수정
+export async function updateTitle(id, title) {
+  await canvases.patch(`/${id}`, { title });
+}
+
+// 상세 데이터 전체 수정
+export async function updateCanvas(id, canvas) {
+  await canvases.put(`/${id}`, canvas);
+}

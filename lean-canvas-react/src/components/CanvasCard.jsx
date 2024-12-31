@@ -1,19 +1,18 @@
 import { FaPlus } from 'react-icons/fa';
 import Note from './Note';
-import { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 
-function CanvasCard({ title, isSubTitle = false }) {
-  const [notes, setNotes] = useState([]);
-
+function CanvasCard({ notes = [], title, isSubTitle = false, onNotesChange }) {
   // 노트 생성
-  const handleCreateNote = () => {
-    setNotes([...notes, { id: uuidv4(), content: '안녕하세요' }]);
-  };
+  const handleCreateNote = () => {};
 
   // 노트 삭제
-  const handleRemoveNote = id => {
-    setNotes(notes.filter(note => note.id !== id));
+  const handleRemoveNote = () => {};
+
+  // 노트 수정
+  const handleUpdateNote = (id, content, color) => {
+    onNotesChange(
+      notes.map(note => (note.id === id ? { ...note, content, color } : note)),
+    );
   };
   return (
     <div className="row-span-1 bg-white min-h-48 border border-collapse border-gray-300">
@@ -30,7 +29,14 @@ function CanvasCard({ title, isSubTitle = false }) {
       </div>
       <div className="space-y-3 min-h-32 p-3">
         {notes.map(note => (
-          <Note key={note.id} id={note.id} onRemoveNote={handleRemoveNote} />
+          <Note
+            key={note.id}
+            id={note.id}
+            content={note.content}
+            color={note.color}
+            onRemoveNote={handleRemoveNote}
+            onUpdateNote={handleUpdateNote}
+          />
         ))}
       </div>
     </div>
