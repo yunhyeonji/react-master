@@ -6,7 +6,7 @@ import ViewToggle from '../components/ViewToggle';
 function Home() {
   const [isGrid, setIsGrid] = useState(true);
   const [searchText, setSearchText] = useState('');
-  const dummyData = [
+  const [dummyData, setDummyData] = useState([
     {
       id: 1,
       title: '친환경 도시 농업 플랫폼',
@@ -31,10 +31,14 @@ function Home() {
       lastModified: '2023-06-01',
       keyword: '여행',
     },
-  ];
+  ]);
   const filterData = dummyData.filter(item =>
     item.title.toLowerCase().includes(searchText.toLowerCase()),
   );
+
+  const handleDeleteItem = id => {
+    setDummyData(dummyData.filter(item => item.id !== id));
+  };
   return (
     <div className="container mx-auto px-4 py-16">
       <div className="mb-6 flex flex-col sm:flex-row items-center justify-between">
@@ -45,6 +49,7 @@ function Home() {
         filterData={filterData}
         searchText={searchText}
         isGrid={isGrid}
+        onDeleteItem={handleDeleteItem}
       />
     </div>
   );

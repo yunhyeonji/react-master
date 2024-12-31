@@ -1,16 +1,11 @@
-import { useLocation, useParams, useSearchParams } from 'react-router-dom';
+import CanvasTitle from '../components/CanvasTitle';
+import LeanCanvas from '../components/LeanCanvas';
 
 function CanvasDetail() {
-  const { id } = useParams();
-  const [searchParms] = useSearchParams();
-  const location = useLocation();
-
   return (
     <>
-      <div>CanvasDetail</div>
-      <p>userId: {id}</p>
-      <p>keyword: {searchParms.get('keyword')}</p>
-      <p>hash: {location.hash}</p>
+      <CanvasTitle />
+      <LeanCanvas />
     </>
   );
 }

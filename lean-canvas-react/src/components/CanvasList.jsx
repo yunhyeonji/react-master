@@ -1,6 +1,6 @@
 import CanvasItem from './CanvasItem';
 
-function CanvasList({ filterData, searchText, isGrid }) {
+function CanvasList({ filterData, searchText, isGrid, onDeleteItem }) {
   if (filterData.length === 0) {
     return (
       <div className="text-center py-10">
@@ -21,6 +21,10 @@ function CanvasList({ filterData, searchText, isGrid }) {
           title={item.title}
           lastModified={item.lastModified}
           keyword={item.keyword}
+          onDelete={e => {
+            e.preventDefault();
+            onDeleteItem(item.id);
+          }}
         />
       ))}
     </div>

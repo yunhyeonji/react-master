@@ -1,10 +1,11 @@
+import { FaTrash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
-function CanvasItem({ id, title, lastModified, keyword }) {
+function CanvasItem({ id, title, lastModified, keyword, onDelete }) {
   return (
     <Link
       key={id}
-      className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105"
+      className="relative bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105"
       to={`/canvases/${id}`}
     >
       <div className="p-6">
@@ -16,6 +17,12 @@ function CanvasItem({ id, title, lastModified, keyword }) {
           {keyword}
         </span>
       </div>
+      <button
+        className="absolute top-2 right-2 p-2 text-red-500 rounded-full"
+        onClick={onDelete}
+      >
+        <FaTrash />
+      </button>
     </Link>
   );
 }
