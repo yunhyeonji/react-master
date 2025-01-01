@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import CanvasList from '../components/CanvasList';
 import SearchBar from '../components/SearchBar';
 import ViewToggle from '../components/ViewToggle';
@@ -10,49 +10,41 @@ import {
 import Loading from '../components/Loading';
 import Error from '../components/Error';
 import Button from '../components/Button';
-import useApiRequest from '../components/hooks/useApiRequest';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 function Home() {
   const [isGrid, setIsGrid] = useState(true);
-  const [searchText, setSearchText] = useState('');
-  const [data, setData] = useState([]);
+  const [searchText, setSearchText] = useState();
 
-  /** 데이터 가져오기 */
-  const { isLoading, error, execute: fetchData } = useApiRequest(getCanvases);
+  const queryClient = useQueryClient();
 
-  useEffect(() => {
-    fetchData(
-      { title_like: searchText },
-      { onSuccess: res => setData(res.data) },
-    );
-  }, [searchText, fetchData]);
+  // 1] 데이터 조회
+  const { data, isLoading, error, refetch } = useQuery({
+    queryKey: ['canvases', searchText],
+    queryFn: () => getCanvases({ title_like: searchText }),
+    initialData: [],
+  });
+
+  // 2] 등록
+  const { mutate: createNewCanvas, isLoading: isLoadingCreate } = useMutation({
+    mutationFn: createCanvas,
+    onSuccess: () => queryClient.invalidateQueries(['canvases']),
+    onError: err => alert(err.message),
+  });
+
+  // 3] 삭제
+  const { mutate: deleteCanvasMutation } = useMutation({
+    mutationFn: deleteCanvas,
+    onSuccess: () => queryClient.invalidateQueries(['canvases']),
+    onError: err => alert(err.message),
+  });
 
   const handleDeleteCanvas = async id => {
-    try {
-      if (!confirm('삭제하시겠습니까?')) {
-        return;
-      }
-      await deleteCanvas(id);
-      setData(data.filter(item => item.id !== id));
-    } catch (err) {
-      alert(err.message);
-    }
+    deleteCanvasMutation(id);
   };
 
-  // 새로운 린 캔버스 생성
-  const { isLoading: isLoadingCreate, execute: createNewCanvas } =
-    useApiRequest(createCanvas);
-
   const handleCreateCanvas = async () => {
-    createNewCanvas(null, {
-      onSuccess: () => {
-        fetchData(
-          { title_like: searchText },
-          { onSuccess: res => setData(res.data) },
-        );
-      },
-      onError: err => alert(err.message),
-    });
+    createNewCanvas();
   };
 
   return (
@@ -67,12 +59,7 @@ function Home() {
         </Button>
       </div>
       {isLoading && <Loading />}
-      {error && (
-        <Error
-          message={error.message}
-          onRetry={() => fetchData({ title_like: searchText })}
-        />
-      )}
+      {error && <Error message={error.message} onRetry={refetch} />}
       {!isLoading && !error && (
         <CanvasList
           filterData={data}
