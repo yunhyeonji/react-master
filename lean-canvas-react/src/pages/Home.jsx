@@ -10,34 +10,24 @@ import {
 import Loading from '../components/Loading';
 import Error from '../components/Error';
 import Button from '../components/Button';
+import useApiRequest from '../components/hooks/useApiRequest';
 
 function Home() {
   const [isGrid, setIsGrid] = useState(true);
   const [searchText, setSearchText] = useState('');
   const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
-
-  const [isLoadingCreate, setIsLoadingCreate] = useState(false);
 
   /** 데이터 가져오기 */
-  async function fetchData(params) {
-    try {
-      setIsLoading(true);
-      setError(false);
-      const res = await getCanvases(params);
-      setData(res.data);
-    } catch (err) {
-      setError(err);
-    } finally {
-      setIsLoading(false);
-    }
-  }
-  useEffect(() => {
-    fetchData({ title_like: searchText });
-  }, [searchText]);
+  const { isLoading, error, execute: fetchData } = useApiRequest(getCanvases);
 
-  const handleDeleteItem = async id => {
+  useEffect(() => {
+    fetchData(
+      { title_like: searchText },
+      { onSuccess: res => setData(res.data) },
+    );
+  }, [searchText, fetchData]);
+
+  const handleDeleteCanvas = async id => {
     try {
       if (!confirm('삭제하시겠습니까?')) {
         return;
@@ -50,17 +40,19 @@ function Home() {
   };
 
   // 새로운 린 캔버스 생성
+  const { isLoading: isLoadingCreate, execute: createNewCanvas } =
+    useApiRequest(createCanvas);
+
   const handleCreateCanvas = async () => {
-    try {
-      setIsLoadingCreate(true);
-      await new Promise(resolver => setTimeout(resolver, 1000));
-      await createCanvas();
-      fetchData({ title_like: searchText });
-    } catch (err) {
-      alert(err.message);
-    } finally {
-      setIsLoadingCreate(false);
-    }
+    createNewCanvas(null, {
+      onSuccess: () => {
+        fetchData(
+          { title_like: searchText },
+          { onSuccess: res => setData(res.data) },
+        );
+      },
+      onError: err => alert(err.message),
+    });
   };
 
   return (
@@ -86,7 +78,7 @@ function Home() {
           filterData={data}
           searchText={searchText}
           isGrid={isGrid}
-          onDeleteItem={handleDeleteItem}
+          onDeleteItem={handleDeleteCanvas}
         />
       )}
     </>

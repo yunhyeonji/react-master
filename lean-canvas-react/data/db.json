@@ -1,12 +1,6 @@
 {
   "canvases": [
     {
-      "id": 1,
-      "title": "친환경 도시 농업 플랫폼",
-      "lastModified": "2023-06-15",
-      "category": "농업"
-    },
-    {
       "id": 2,
       "title": "AI 기반 건강 관리 앱",
       "lastModified": "2023-06-10",
@@ -26,7 +20,7 @@
     },
     {
       "id": 5,
-      "title": "혁신적인 스마트홈 솔루션!!",
+      "title": "혁신적인 스마트홈 솔루션",
       "lastModified": "2023-08-22",
       "category": "신규",
       "problem": {
@@ -174,7 +168,7 @@
           {
             "id": "cs1",
             "content": "하드웨어 개발 및 생산 비용",
-            "color": "bg-pink-300"
+            "color": "bg-green-300"
           },
           {
             "id": "cs2",
