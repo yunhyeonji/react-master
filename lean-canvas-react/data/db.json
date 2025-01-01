@@ -4,7 +4,16 @@
       "id": 2,
       "title": "AI 기반 건강 관리 앱",
       "lastModified": "2023-06-10",
-      "category": "헬스케어"
+      "category": "헬스케어",
+      "problem": {
+        "notes": [
+          {
+            "id": "81eb13f5-5e8d-449f-8c1d-03b823ed8d2b",
+            "content": "문제",
+            "color": "bg-yellow-300"
+          }
+        ]
+      }
     },
     {
       "id": 3,
@@ -233,6 +242,14 @@
           }
         ]
       }
+    },
+    {
+      "title": "new canvas",
+      "id": 6
+    },
+    {
+      "title": "new canvas",
+      "id": 7
     }
   ]
 }
