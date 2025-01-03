@@ -12,7 +12,7 @@ function LeanCanvas({ canvas, onCanvasChange }) {
   };
   return (
     <div className="border-4 border-black">
-      <div className="grid grid-cols-5">
+      <div className="md:grid grid-cols-5">
         <CanvasCard
           title={'1. 문제'}
           notes={canvas.problem?.notes}
