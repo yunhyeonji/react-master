@@ -20,7 +20,7 @@ function Header() {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   return (
     <header className="sticky top-0 bg-gray-800 text-white z-30">
-      <div className="container mx-auto flex justify-between items-center h-14">
+      <div className="container px-2 mx-auto flex justify-between items-center h-14">
         <div>
           <Link to="/" className="text-xl font-bold">
             Lean Canvas
