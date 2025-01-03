@@ -6,7 +6,7 @@ function CanvasTitle({ value, onChange }) {
   const [titleText, setTitleText] = useState(value);
   const handleDoneTitle = () => {
     setIsEditing(false);
-    onChange(titleText);
+    onChange('title', titleText);
   };
   useEffect(() => setTitleText(value), [value]);
   return (

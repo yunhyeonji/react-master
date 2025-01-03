@@ -31,7 +31,7 @@
       "id": 5,
       "title": "혁신적인 스마트홈 솔루션!!",
       "lastModified": "2025-01-03 11:38:46",
-      "category": "신규",
+      "category": "헬스케어",
       "problem": {
         "notes": [
           {
@@ -244,10 +244,19 @@
       }
     },
     {
-      "title": "3c28_새로운 린 캔버스",
-      "lastModified": "2025-01-02 12:46:47",
-      "category": "신규",
-      "id": 6
+      "title": "신규 린캔버스",
+      "lastModified": "2025-01-03 16:00:20",
+      "category": "헬스케어",
+      "id": 6,
+      "problem": {
+        "notes": [
+          {
+            "id": "4703c062-9b8f-49a8-92ce-c21f44e484e4",
+            "content": "이게 무슨일이야...",
+            "color": "bg-yellow-300"
+          }
+        ]
+      }
     }
   ]
 }

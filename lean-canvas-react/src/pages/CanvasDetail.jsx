@@ -7,6 +7,7 @@ import {
   updateCanvas,
   updateTitle,
 } from '../components/api/canvas';
+import Categoryfilter from '../components/Categoryfilter';
 
 function CanvasDetail() {
   const { id } = useParams();
@@ -20,9 +21,10 @@ function CanvasDetail() {
     fetchCanvas();
   }, [id]);
 
-  const handleTitleChange = async title => {
+  const handlePatchChange = async (title, val) => {
     try {
-      await updateTitle(id, title);
+      await updateTitle(id, title, val);
+      setCanvas({ ...canvas, [title]: val });
     } catch (err) {
       alert(err.message);
     }
@@ -38,7 +40,14 @@ function CanvasDetail() {
   };
   return (
     <>
-      <CanvasTitle value={canvas?.title} onChange={handleTitleChange} />
+      <CanvasTitle value={canvas?.title} onChange={handlePatchChange} />
+      <div className="flex justify-end pb-4">
+        <Categoryfilter
+          category={canvas?.category}
+          onChange={val => handlePatchChange('category', val)}
+        />
+      </div>
+
       {canvas && (
         <LeanCanvas canvas={canvas} onCanvasChange={handleCanvasChange} />
       )}

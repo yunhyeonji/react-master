@@ -37,8 +37,11 @@ export async function getCanvasById(id) {
 }
 
 // 상세 데이터 Title 수정
-export async function updateTitle(id, title) {
-  await canvases.patch(`/${id}`, { title });
+export async function updateTitle(id, title, value) {
+  await canvases.patch(`/${id}`, {
+    [title]: value,
+    lastModified: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+  });
 }
 
 // 상세 데이터 전체 수정
