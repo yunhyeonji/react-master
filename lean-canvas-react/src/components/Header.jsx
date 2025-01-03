@@ -57,7 +57,12 @@ function Header() {
         </div>
         <nav className="flex flex-col space-y-4 p-4">
           {navItems.map(item => (
-            <NavLink key={item.id} to={item.to} className="hover:text-gray-300">
+            <NavLink
+              onClick={() => setIsMenuOpen(false)}
+              key={item.id}
+              to={item.to}
+              className="hover:text-gray-300"
+            >
               {item.label}
             </NavLink>
           ))}
