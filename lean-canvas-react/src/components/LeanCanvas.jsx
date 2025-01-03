@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import CanvasCard from './CanvasCard';
 function LeanCanvas({ canvas, onCanvasChange }) {
   // 변화된 새로운 객체 생성 후 업데이트
@@ -5,6 +6,7 @@ function LeanCanvas({ canvas, onCanvasChange }) {
     const updatedCanvas = {
       ...canvas,
       [section]: { ...canvas[section], notes: updatedNotes },
+      lastModified: dayjs().format('YYYY-MM-DD HH:mm:ss'),
     };
     onCanvasChange(updatedCanvas);
   };
